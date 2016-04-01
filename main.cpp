@@ -1,5 +1,3 @@
-#define ARDUINO 10001
-
 #include <LiquidCrystal_I2C.h>
 #include <string.h>
 #include <Wire.h>
