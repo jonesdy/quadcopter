@@ -3,41 +3,25 @@
 #include <string.h>
 #include <Wire.h>
 #include "Lcd.hpp"
+#include "DistanceSensor.hpp"
 
 #define ECHO 30
 #define TRIG 31
-uint32_t duration;
-double dist_cm;
-double dist_in;
+DistanceSensor sensor(TRIG, ECHO);
 
 void setup()
 {
-   pinMode(TRIG, OUTPUT);
-   pinMode(ECHO, INPUT);
-
-   delay(1000);
 }
 
 void dist_test()
 {
-   dist_cm = 0.0;
-   dist_in = 0.0;
-
-   // Send 10us pulse
-   digitalWrite(TRIG, LOW);
-   delayMicroseconds(2);
-   digitalWrite(TRIG, HIGH);
-   delayMicroseconds(10);
-   digitalWrite(TRIG, LOW);
-   duration = pulseIn(ECHO, HIGH);
-   dist_cm = (double)duration / 58.0;
-   dist_in = (double)duration / 148.0;
-
+   double distCm = sensor.getDistanceCm();
+   double distIn = sensor.getDistanceIn();
    Lcd::getInstance().home();
-   Lcd::getInstance().print(dist_cm);
+   Lcd::getInstance().print(distCm);
    Lcd::getInstance().print(" cm");
    Lcd::getInstance().setCursor(0, 1);
-   Lcd::getInstance().print(dist_in);
+   Lcd::getInstance().print(distIn);
    Lcd::getInstance().print(" in");
    delay(60);     // 60ms between measurements
 }

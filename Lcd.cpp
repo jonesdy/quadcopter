@@ -49,6 +49,6 @@ void Lcd::setCursor(uint8_t col, uint8_t row)
 
 Lcd &Lcd::getInstance()
 {
-   static Lcd instance;  // avr-g++ is stupid and doesnt allow this magic
+   static Lcd instance;  // avr-g++ is stupid and doesnt allow this magic without the DumbAvrStatic.h
    return instance;
 }
