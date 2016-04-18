@@ -1,7 +1,4 @@
-#include <Arduino.h>
-#include <LiquidCrystal_I2C.h>
 #include <string.h>
-#include <Wire.h>
 #include "Lcd.hpp"
 #include "DistanceSensor.hpp"
 
