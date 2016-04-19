@@ -5,6 +5,8 @@
 #define ECHO 30
 #define TRIG 31
 DistanceSensor sensor(TRIG, ECHO);
+// I hate avr-gcc, it freezes my Arudino with any reference variables. So here's my crappy variable
+#define lcd Lcd::getInstance()
 
 void setup()
 {
@@ -14,18 +16,18 @@ void dist_test()
 {
    double distCm = sensor.getDistanceCm();
    double distIn = sensor.getDistanceIn();
-   Lcd::getInstance().home();
-   Lcd::getInstance().print(distCm);
-   Lcd::getInstance().print(" cm");
-   Lcd::getInstance().setCursor(0, 1);
-   Lcd::getInstance().print(distIn);
-   Lcd::getInstance().print(" in");
+   lcd.home();
+   lcd.print(distCm);
+   lcd.print(" cm");
+   lcd.setCursor(0, 1);
+   lcd.print(distIn);
+   lcd.print(" in");
    delay(60);     // 60ms between measurements
 }
 
 void loop()
 {
-   Lcd::getInstance().clear();
+   lcd.clear();
 
    dist_test();
 
