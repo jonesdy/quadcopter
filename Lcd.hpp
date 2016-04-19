@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 
+#define DEBUG
+
 class Lcd
 {
 private:
