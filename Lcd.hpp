@@ -16,6 +16,7 @@ public:
    void home();
    void print(const char *str);
    void print(double d);
+   void print(String str);
    void clear();
    void setCursor(uint8_t col, uint8_t row);
 };

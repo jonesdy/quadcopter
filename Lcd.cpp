@@ -37,6 +37,11 @@ void Lcd::print(double d)
    lcd.print(d);
 }
 
+void Lcd::print(String str)
+{
+   lcd.print(str);
+}
+
 void Lcd::clear()
 {
    lcd.clear();
