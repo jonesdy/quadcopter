@@ -2,6 +2,9 @@
 #include "Lcd.hpp"
 #include "DistanceSensor.hpp"
 #include "GyroAccTemp.hpp"
+#include "Motor.hpp"
+#include <Arduino.h>
+#include <Servo.h>
 
 #define ECHO 30
 #define TRIG 31
@@ -10,16 +13,33 @@ DistanceSensor dist(TRIG, ECHO);
 #define lcd Lcd::getInstance()
 #define MPU_ADDR 0x68
 GyroAccTemp gyro(MPU_ADDR);
+#define FRONT_MOTOR_PIN 9
+#define RIGHT_MOTOR_PIN 10
+#define BACK_MOTOR_PIN 11
+#define LEFT_MOTOR_PIN 12
+Motor frontMotor(FRONT_MOTOR_PIN);
+Motor rightMotor(RIGHT_MOTOR_PIN);
+Motor backMotor(BACK_MOTOR_PIN);
+Motor leftMotor(LEFT_MOTOR_PIN);
+//Servo servo;
 
 void setup()
 {
    Wire.begin();
    gyro.begin();
+   frontMotor.begin();
+   rightMotor.begin();
+   backMotor.begin();
+   leftMotor.begin();
+   //servo.attach(9);
+   //servo.write(0);
+   delay(1000);
 }
 
-void dist_test()
+void distTest()
 {
    double distCm = dist.getDistanceCm();
+   delay(60);     // 60ms between measurements
    double distIn = dist.getDistanceIn();
    lcd.home();
    lcd.print(distCm);
@@ -30,7 +50,7 @@ void dist_test()
    delay(60);     // 60ms between measurements
 }
 
-void gyro_test()
+void gyroTest()
 {
    GyroAccTempReading reading = gyro.read();
    lcd.home();
@@ -53,12 +73,50 @@ void gyro_test()
    lcd.print(String(reading.gyz));
 }
 
+void motorTest()
+{
+   frontMotor.setMotorSpeed(0);
+   rightMotor.setMotorSpeed(0);
+   backMotor.setMotorSpeed(0);
+   leftMotor.setMotorSpeed(0);
+
+   lcd.clear();
+   lcd.home();
+   lcd.print("Front");
+   frontMotor.setMotorSpeed(50);
+   delay(5000);
+   frontMotor.setMotorSpeed(0);
+   lcd.clear();
+   lcd.home();
+   lcd.print("Right");
+   rightMotor.setMotorSpeed(50);
+   delay(5000);
+   rightMotor.setMotorSpeed(0);
+   lcd.clear();
+   lcd.home();
+   lcd.print("Back");
+   backMotor.setMotorSpeed(50);
+   delay(5000);
+   backMotor.setMotorSpeed(0);
+   lcd.clear();
+   lcd.home();
+   lcd.print("Left");
+   leftMotor.setMotorSpeed(50);
+   delay(5000);
+   leftMotor.setMotorSpeed(0);
+   //servo.write(50);
+   //delay(1000);
+   //servo.write(0);
+   //delay(1000);
+}
+
 void loop()
 {
    lcd.clear();
 
-   //dist_test();
-   gyro_test();
+   //distTest();
+   //gyroTest();
+   motorTest();
 
    delay(1000);
 }

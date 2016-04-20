@@ -4,6 +4,6 @@
 BOARD_TAG    = mega
 BOARD_SUB    = atmega2560
 MONITOR_PORT = /dev/ttyACM0
-ARDUINO_LIBS = NewliquidCrystal Wire SoftI2CMaster
+ARDUINO_LIBS = NewliquidCrystal Wire SoftI2CMaster Servo
 CPPFLAGS += -std=gnu++11
 include /usr/share/arduino/Arduino.mk
